@@ -74,8 +74,7 @@ const node = container.selectAll(".node")
 
 
 node.append("div")
-  .text(d => { console.log(d);
-    return d.data.name})
+  .text(d => {return d.data.name})
   .style("background-color", d => d.data.isComplete ? "green" : "red")
   .style("padding", "5px")
   .style("border-radius", "5px")
