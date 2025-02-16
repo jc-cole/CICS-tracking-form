@@ -18,6 +18,21 @@ csCourseObjects["160"].addChild(csCourseObjects["210"])
 csCourseObjects["210"].addChild(csCourseObjects["220"])
 csCourseObjects["210"].addChild(csCourseObjects["230"])
 
+let exampleCourseCards = [
+    new CourseCard(csCourseObjects["110"]),
+    new CourseCard(csCourseObjects["160"]),
+    new CourseCard(csCourseObjects["210"]),
+    new CourseCard(csCourseObjects["220"]),
+    new CourseCard(csCourseObjects["230"]),
+]
+
+exampleCourseCards.forEach((card) => {
+    card.makeDomElement()
+    console.log(card.element)
+    document.querySelector("body").appendChild(card.element)
+    console.log("bruh")
+})
+
 csCourseTree.rootNode = csCourseObjects["110"]
 
 let d3Data = csCourseTree.convertToD3Hierarchy()
