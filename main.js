@@ -37,16 +37,19 @@ const courseCardMap = new Map(exampleCourseCards.map(card => [card.courseNode.co
 const width = 800;
 const height = 600;
 
-const treeLayout = d3.tree().nodeSize([400, 300]);
+const treeLayout = d3.tree()
+  .size([window.innerHeight - 100, window.innerWidth - 100]);
 const root = d3.hierarchy(d3Data);
 const treeData = treeLayout(root);
 
 // Create a container div
 const container = d3.select("body").append("div")
-  .style("width", width + "px")
-  .style("height", height + "px")
+  .style("width", "100vw")
+  .style("height", "150vh")
   .style("position", "relative")
-  .style("transform", "translate(600px, 300px)");
+  .style("margin", "100px")
+
+
 
 // Add nodes
 const node = container.selectAll(".node")
@@ -101,7 +104,6 @@ const node = container.selectAll(".node")
 const linkContainer = container.append("svg")
   .style("position", "absolute")
   .style("top", "0")
-  .style("left", "0")
   .style("width", "100%")
   .style("height", "100%")
   .style("z-index", "-1");
@@ -125,3 +127,6 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+console.log(treeData.links()[2]);
+

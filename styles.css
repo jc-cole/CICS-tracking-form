@@ -1,3 +1,8 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .roboto {
     font-family: "Roboto", serif;
     font-optical-sizing: auto;
