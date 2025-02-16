@@ -7,6 +7,8 @@ export class D3TreeMaker {
 
     // 90% AI generated code. not good but functional. somehow.
     makeTree() {
+        const offset = 800
+
         let d3Data = this.courseTree.convertToD3Hierarchy()
 
         let courseNodes = this.courseTree.getAllNodes()
@@ -18,7 +20,7 @@ export class D3TreeMaker {
         const courseCardMap = new Map(courseCards.map(card => [card.courseNode.courseIdentifier, card]));
 
         const treeLayout = d3.tree()
-        .size([window.innerHeight - 100, window.innerWidth - 100]);
+        .nodeSize([300, 250]);;
         const root = d3.hierarchy(d3Data);
         const treeData = treeLayout(root);
 
@@ -47,7 +49,7 @@ export class D3TreeMaker {
                 return `node ${courseCard.element.className}`
             })
             .style("position", "absolute")
-            .style("left", d => d.x + "px")
+            .style("left", d => d.x + offset + "px")
             .style("top", d => d.y + "px")
             .style("transform", "translate(-50%, -50%)");
 
@@ -63,9 +65,9 @@ export class D3TreeMaker {
             .data(treeData.links())
             .enter().append("line")
             .attr("class", "link")
-            .attr("x1", d => d.source.x)
+            .attr("x1", d => d.source.x + offset)
             .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
+            .attr("x2", d => d.target.x + offset)
             .attr("y2", d => d.target.y)
             .style("stroke", "black")
             .style("stroke-width", "15px");
