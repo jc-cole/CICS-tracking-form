@@ -26,22 +26,18 @@ let exampleCourseCards = [
     new CourseCard(csCourseObjects["230"]),
 ]
 
-exampleCourseCards.forEach((card) => {
-    card.makeDomElement()
-    console.log(card.element)
-    document.querySelector("body").appendChild(card.element)
-    console.log("bruh")
-})
+
 
 csCourseTree.rootNode = csCourseObjects["110"]
 
 let d3Data = csCourseTree.convertToD3Hierarchy()
 
+const courseCardMap = new Map(exampleCourseCards.map(card => [card.courseNode.courseIdentifier, card]));
 
 const width = 800;
 const height = 600;
 
-const treeLayout = d3.tree().size([height, width - 160]);
+const treeLayout = d3.tree().nodeSize([400, 300]);
 const root = d3.hierarchy(d3Data);
 const treeData = treeLayout(root);
 
@@ -50,16 +46,27 @@ const container = d3.select("body").append("div")
   .style("width", width + "px")
   .style("height", height + "px")
   .style("position", "relative")
-  .style("transform", "translate(80px, 0)");
+  .style("transform", "translate(600px, 300px)");
 
 // Add nodes
 const node = container.selectAll(".node")
   .data(treeData.descendants())
-  .enter().append("div")
-  .attr("class", "node")
+  .enter().append(function(d) {
+    const courseCard = courseCardMap.get(d.data.name);
+    if (courseCard) {
+      courseCard.makeDomElement(); // Ensure the DOM element is created
+      return courseCard.element.cloneNode(true); // Clone the element to avoid moving it
+    }
+    // Fallback to a simple div if no CourseCard is found
+    return document.createElement('div');
+  })
+  .attr("class", (d) => {
+    const courseCard = courseCardMap.get(d.data.name);
+    return `node ${courseCard.element.className}`
+})
   .style("position", "absolute")
-  .style("left", d => d.y + "px")
-  .style("top", d => d.x + "px")
+  .style("left", d => d.x + "px")
+  .style("top", d => d.y + "px")
   .style("transform", "translate(-50%, -50%)");
 
 // Add labels
@@ -88,12 +95,7 @@ const node = container.selectAll(".node")
 */
 
 
-node.append("div")
-  .text(d => {return d.data.name})
-  .style("background-color", d => d.data.isComplete ? "green" : "red")
-  .style("padding", "5px")
-  .style("border-radius", "5px")
-  .style("color", "white");
+
 
 // Add links
 const linkContainer = container.append("svg")
@@ -108,12 +110,12 @@ linkContainer.selectAll(".link")
   .data(treeData.links())
   .enter().append("line")
   .attr("class", "link")
-  .attr("x1", d => d.source.y)
-  .attr("y1", d => d.source.x)
-  .attr("x2", d => d.target.y)
-  .attr("y2", d => d.target.x)
-  .style("stroke", "#ccc")
-  .style("stroke-width", "2px");
+  .attr("x1", d => d.source.x)
+  .attr("y1", d => d.source.y)
+  .attr("x2", d => d.target.x)
+  .attr("y2", d => d.target.y)
+  .style("stroke", "black")
+  .style("stroke-width", "20px");
 
 // Add some CSS for styling
 const style = document.createElement('style');
