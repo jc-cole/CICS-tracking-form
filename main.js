@@ -6,11 +6,11 @@ import { CourseNode } from "./business-logic/CourseNode.js";
 let csCourseTree = new CourseTree()
 
 let csCourseObjects = {
-    "110": new CourseNode("CICS 110", "Foundations of Programming", false, []),
-    "160": new CourseNode("CICS 160", "Object Oriented Programming", false, []),
-    "210": new CourseNode("CICS 210", "Data Structures", false, []),
-    "220": new CourseNode("CS 220", "Programming Methodology", false, []),
-    "230": new CourseNode("CS 230", "Computer System Principles", false, []),
+    "110": new CourseNode("CICS 110", "Foundations of Programming", "1", "F-", false, []),
+    "160": new CourseNode("CICS 160", "Object Oriented Programming", "1", "F-", false, []),
+    "210": new CourseNode("CICS 210", "Data Structures", "1", "F-", false, []),
+    "220": new CourseNode("CS 220", "Programming Methodology", "1", "F-", false, []),
+    "230": new CourseNode("CS 230", "Computer System Principles", "1", "F-", false, []),
 }
 
 csCourseObjects["110"].addChild(csCourseObjects["160"])
