@@ -9,10 +9,14 @@ let csCourseObjects = {
     "110": new CourseNode("CICS 110", "Foundations of Programming", false, []),
     "160": new CourseNode("CICS 160", "Object Oriented Programming", false, []),
     "210": new CourseNode("CICS 210", "Data Structures", false, []),
+    "220": new CourseNode("CS 220", "Programming Methodology", false, []),
+    "230": new CourseNode("CS 230", "Computer System Principles", false, []),
 }
 
 csCourseObjects["110"].addChild(csCourseObjects["160"])
 csCourseObjects["160"].addChild(csCourseObjects["210"])
+csCourseObjects["210"].addChild(csCourseObjects["220"])
+csCourseObjects["210"].addChild(csCourseObjects["230"])
 
 csCourseTree.rootNode = csCourseObjects["110"]
 
