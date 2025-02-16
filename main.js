@@ -26,36 +26,82 @@ const treeLayout = d3.tree().size([height, width - 160]);
 const root = d3.hierarchy(d3Data);
 const treeData = treeLayout(root);
 
-const svg = d3.select("body").append("svg")
-  .attr("width", width)
-  .attr("height", height)
-  .append("g")
-  .attr("transform", "translate(80,0)");
-
-// Add links
-svg.selectAll(".link")
-  .data(treeData.links())
-  .enter().append("path")
-  .attr("class", "link")
-  .attr("d", d3.linkHorizontal()
-    .x(d => d.y)
-    .y(d => d.x));
+// Create a container div
+const container = d3.select("body").append("div")
+  .style("width", width + "px")
+  .style("height", height + "px")
+  .style("position", "relative")
+  .style("transform", "translate(80px, 0)");
 
 // Add nodes
-const node = svg.selectAll(".node")
+const node = container.selectAll(".node")
   .data(treeData.descendants())
-  .enter().append("g")
+  .enter().append("div")
   .attr("class", "node")
-  .attr("transform", d => `translate(${d.y},${d.x})`);
-
-// Add circles for nodes
-node.append("circle")
-  .attr("r", 10)
-  .style("fill", d => d.data.isComplete ? "green" : "red");
+  .style("position", "absolute")
+  .style("left", d => d.y + "px")
+  .style("top", d => d.x + "px")
+  .style("transform", "translate(-50%, -50%)");
 
 // Add labels
-node.append("text")
-  .attr("dy", ".35em")
-  .attr("x", d => d.children ? -13 : 13)
-  .style("text-anchor", d => d.children ? "end" : "start")
-  .text(d => d.data.name);
+
+/* "d.data" object looks like this: {
+  "name": "CICS 110",
+  "title": "Foundations of Programming",
+  "isComplete": false,
+  "children": [
+    {
+      "name": "CICS 160",
+      "title": "Object Oriented Programming",
+      "isComplete": false,
+      "children": [
+        {
+          "name": "CICS 210",
+          "title": "Data Structures",
+          "isComplete": false,
+          "children": []
+        }
+      ]
+    }
+  ]
+}
+
+*/
+
+
+node.append("div")
+  .text(d => { console.log(d);
+    return d.data.name})
+  .style("background-color", d => d.data.isComplete ? "green" : "red")
+  .style("padding", "5px")
+  .style("border-radius", "5px")
+  .style("color", "white");
+
+// Add links
+const linkContainer = container.append("svg")
+  .style("position", "absolute")
+  .style("top", "0")
+  .style("left", "0")
+  .style("width", "100%")
+  .style("height", "100%")
+  .style("z-index", "-1");
+
+linkContainer.selectAll(".link")
+  .data(treeData.links())
+  .enter().append("line")
+  .attr("class", "link")
+  .attr("x1", d => d.source.y)
+  .attr("y1", d => d.source.x)
+  .attr("x2", d => d.target.y)
+  .attr("y2", d => d.target.x)
+  .style("stroke", "#ccc")
+  .style("stroke-width", "2px");
+
+// Add some CSS for styling
+const style = document.createElement('style');
+style.textContent = `
+  .node {
+    cursor: pointer;
+  }
+`;
+document.head.appendChild(style);
