@@ -1,4 +1,4 @@
-class CourseNode {
+export class CourseNode {
     constructor(courseIdentifier, courseTitle, isComplete, childNodes) {
         // ex "CICS 210", "MATH 233", assumed to be unique
         this.courseIdentifier = courseIdentifier
