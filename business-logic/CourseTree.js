@@ -32,4 +32,16 @@ export class CourseTree {
         // If not found in any children, return null
         return null;
     }
+
+    convertToD3Hierarchy() {
+        function convertNode(node) {
+          return {
+            name: node.courseIdentifier,
+            title: node.courseTitle,
+            isComplete: node.isComplete,
+            children: node.childNodes.map(convertNode)
+          };
+        }
+        return convertNode(this.rootNode);
+      }
 }
