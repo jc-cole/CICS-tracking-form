@@ -40,7 +40,7 @@ export class D3TreeMaker {
                 const courseCard = courseCardMap.get(d.data.name);
                 if (courseCard) {
                     courseCard.makeDomElement();
-                    return courseCard.element.cloneNode(true);
+                    return courseCard.element;
                 }
                 return document.createElement('div');
             })

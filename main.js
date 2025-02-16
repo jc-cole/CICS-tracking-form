@@ -36,6 +36,8 @@ csCourseObjects["210"].addChild(csCourseObjects["230"])
 csCourseObjects["131"].addChild(csCourseObjects["132"])
 csCourseObjects["132"].addChild(csCourseObjects["233"])
 csCourseObjects["132"].addChild(csCourseObjects["235"])
+csCourseObjects["132"].addChild(csCourseObjects["240"])
+csCourseObjects["132"].addChild(csCourseObjects["250"])
 
 let exampleCourseCards = [
     new CourseCard(csCourseObjects["110"]),
