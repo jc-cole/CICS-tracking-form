@@ -1,6 +1,12 @@
 body {
     display: flex;
     justify-content: center;
+    margin: 0px;
+}
+.course-completed-checkbox {
+    width: 30px;
+    justify-content: space-between;
+    width: "100%";
 }
 
 .roboto {
@@ -20,6 +26,19 @@ body {
     width: 250px;
     border-color: black;
     padding: 15px;
+    margin: 30px;
+}
+
+#grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 0.1fr 1fr 0.1fr 1fr;
+}
+
+#title-bar {
+    background-color: darkred;
+    grid-column: 1 / 7;
 }
 
 .course-identifier {
@@ -29,6 +48,26 @@ body {
 
 .course-name {
     font-style: italic;
+    font-size: 25px;
+}
+
+.grade {
+    font-size: 25px;
+}
+
+input {
+    width: 30px;
+    height: 30px;
+    border-radius: 0px;
+    border-width: 0px;
+    border-bottom-width: 5px;
+    font-size: 25px;
+    padding: 0px;
+    text-align: center;
+}
+
+.semester-label {
+    font-size: 25px;
 }
 
 .link {
