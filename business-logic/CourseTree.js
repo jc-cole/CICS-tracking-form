@@ -1,3 +1,5 @@
+import { CourseNode } from "./CourseNode.js";
+
 export class CourseTree {
     constructor(rootNode, childNodes) {
         this.rootNode = rootNode || new CourseNode()
