@@ -12,6 +12,24 @@ export class CourseTree {
         return this.#preorderTraversal(this.rootNode, targetIdentifier);
     }
 
+    getAllNodes() {
+        const nodes = [];
+        this.#collectNodes(this.rootNode, nodes);
+        return nodes;
+    }
+    
+    #collectNodes(currentNode, nodesArray) {
+        if (!currentNode) {
+            return;
+        }
+    
+        nodesArray.push(currentNode);
+    
+        for (let childNode of currentNode.childNodes) {
+            this.#collectNodes(childNode, nodesArray);
+        }
+    }
+    
     #preorderTraversal(currentNode, targetIdentifier) {
         // Base case: if current node is null, return null
         if (!currentNode) {
