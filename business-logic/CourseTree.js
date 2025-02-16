@@ -1,6 +1,7 @@
 export class CourseTree {
     constructor(rootNode, childNodes) {
         this.rootNode = rootNode || new CourseNode()
+        this.childNodes = childNodes || []
     }
 
     // returns node if in tree, otherwise returns null
